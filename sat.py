@@ -117,6 +117,14 @@ def run():
         page.goto(URL, wait_until="domcontentloaded")
         page.wait_for_timeout(5000)
 
+        print("URL:", page.url)
+        print("TITLE:", page.title())
+
+        page.screenshot(path="debug.png", full_page=True)
+
+        html = page.content()
+        print(html[:2000])
+
         try:
             page.locator("button[aria-label='1 Ticket']").click(timeout=2000)
         except:
@@ -145,7 +153,15 @@ def run():
         # 等 listings
         if not wait_for_listings(page):
             print("❌ no listings found")
+
+            print("URL:", page.url)
+            print("TITLE:", page.title())
+
             page.screenshot(path="debug.png", full_page=True)
+
+            html = page.content()
+            print(html[:2000])
+
             browser.close()
             return
 
